@@ -163,17 +163,26 @@ ADMIN_PASSWORD=admin123
 
 ## Local Development
 
-### 1. Backend Setup
+### 1. Unified Run (Recommended)
+To run both the backend and frontend with a single command from the root directory:
 ```bash
 npm install
-npm run dev    # Starts server with watch mode on port 8000
+npm run dev:all
 ```
 
-### 2. Frontend Setup
+### 2. Manual Setup (Optional)
+
+#### Backend Setup
+```bash
+npm install
+npm run dev   
+```
+
+#### Frontend Setup
 ```bash
 cd frontend
 npm install
-npm run dev    # Starts Vite dev server
+npm run dev  
 ```
 
 ---
