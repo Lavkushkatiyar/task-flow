@@ -1,45 +1,20 @@
 const express = require("express");
-
 const authMiddleware = require("../middleware/auth_middleware");
-
-const {
-  updateTaskHandler,
-  deleteTaskHandler,
-  getTasksHandler,
-  createTaskHandler,
-} = require("../controllers/task_controller");
-
-const {
-  getUsersHandler,
-  deleteUserHandler,
-} = require("../controllers/admin_controller");
-
-const {
-  registerHandler,
-  loginHandler,
-} = require("../controllers/auth_controllers");
+const authRoutes = require("./auth.routes");
+const taskRoutes = require("./task.routes");
+const adminRoutes = require("./admin.routes");
 
 const router = express.Router();
 
-router
-  .route("/tasks/:id")
-  .put(authMiddleware, updateTaskHandler)
-  .delete(authMiddleware, deleteTaskHandler);
+// Auth routes (public)
+router.use("/auth", authRoutes);
 
-router.get("/tasks", authMiddleware, getTasksHandler);
-
-router.get("/users", authMiddleware, getUsersHandler);
-
-router.delete("/users/:id", authMiddleware, deleteUserHandler);
-
-router.post("/tasks", authMiddleware, createTaskHandler);
+// Protected routes
+router.use("/tasks", taskRoutes);
+router.use("/", adminRoutes); // This covers /users and /users/:id/role
 
 router.get("/profile", authMiddleware, (req, res) => {
   return res.json({ user: req.user });
 });
-
-router.post("/auth/register", registerHandler);
-
-router.post("/auth/login", loginHandler);
 
 module.exports = router;

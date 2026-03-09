@@ -18,7 +18,20 @@ const deleteUser = async (userId) => {
   return true;
 };
 
+const updateUserRole = async (userId, newRole) => {
+  const repo = getUserRepo();
+
+  const user = await repo.findOne({ where: { id: userId } });
+  if (!user) return null;
+
+  user.role = newRole;
+  await repo.save(user);
+
+  return user;
+};
+
 module.exports = {
   getAllUsers,
   deleteUser,
+  updateUserRole,
 };

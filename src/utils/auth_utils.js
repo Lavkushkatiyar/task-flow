@@ -42,16 +42,21 @@ const isValidUser = async (id, password) => {
 const seedAdmin = async () => {
   const repo = getUserRepo();
 
-  const existing = await repo.findOne({ where: { id: "1" } });
+  const adminId = process.env.ADMIN_EMAIL || "admin@taskflow.com";
+  const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+
+  const existing = await repo.findOne({ where: { id: adminId } });
 
   if (!existing) {
-    const hashedPassword = await bcrypt.hash("123", 10);
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
     await repo.save({
-      id: "1",
+      id: adminId,
       password: hashedPassword,
       role: "admin",
     });
+
+    console.log(`Admin seeded: ${adminId}`);
   }
 };
 
