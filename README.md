@@ -1,9 +1,5 @@
 # TaskFlow: Full-Stack Task Management & User API
 
-> Single-file project documentation intended for reviewers and engineers. Place this file at the repository root as `README.md`.
-
----
-
 ## Table of Contents
 
 1. [Project Summary](#project-summary)
